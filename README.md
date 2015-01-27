@@ -1,4 +1,4 @@
-"A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays"
+A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays
 ====================
 
 Draft of the manuscript "A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays", developed as a package (see [here](http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html)). Note:
