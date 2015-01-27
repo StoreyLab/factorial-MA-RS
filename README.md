@@ -1,7 +1,7 @@
-Factorial manuscript
+"A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays"
 ====================
 
-Draft of the factorial manuscript, developed as a package (see [here](http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html)). Note:
+Draft of the manuscript "A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays", developed as a package (see [here](http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html)). Note:
 
 * Draft source is in vignettes, compiled draft is in `inst/doc`
     * Makes use of functions in `R/`
@@ -20,4 +20,6 @@ You'll first need to install the following packages:
     install.packages("devtools")
     devtools::install_github(c("dgrtwo/broom", "dgrtwo/biobroom", "dgrtwo/GSEAMA"))
 
-Then open `factorial.Rproj` and under the Build tab, click "Build & Reload." It should install the remaining packages. You can then go to `vignettes/factorial.Rnw` and click Compile PDF, and then `vignettes/supplemental.Rnw` and click Compile PDF again.
+Then open `factorial.Rproj` and under the Build tab, click "Build & Reload." It should install the remaining packages. You can then go to `vignettes/factorial.Rnw` and click Compile PDF.
+
+To compile the supplemental material, go to `vignettes/supplemental.Rnw` and click Compile PDF again.
