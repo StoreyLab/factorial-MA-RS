@@ -1,7 +1,7 @@
 A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays
 ====================
 
-Draft of the manuscript "A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays", developed as a package (see [here](http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html)). Note:
+Draft of the manuscript [A nested parallel experiment demonstrates differences in intensity-dependence between RNA-seq and microarrays](http://biorxiv.org/content/early/2014/12/30/013342), developed as a package (see [here](http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html)). Note:
 
 * Draft source is in vignettes, compiled draft is in `inst/doc`
     * Makes use of functions in `R/`
