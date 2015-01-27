@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.RData
+cache
+
+vignettes/cache
+vignettes/*cache
+vignettes/*.blg
+vignettes/*.idx
+vignettes/*.ilg
+vignettes/*.ind
+vignettes/supplementary_figure
+
+*.synctex.gz
+*.tex
+*.log

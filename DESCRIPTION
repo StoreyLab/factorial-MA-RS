@@ -1,0 +1,27 @@
+Package: factorial
+Title: Draft of factorial manuscript (as a package)
+Version: 0.1
+Authors@R: "David Robinson <dgrtwo@princeton.edu> [aut, cre]"
+Description: Draft of factorial manuscript  (as a package)
+Depends:
+    R (>= 3.1.0)
+Imports:
+    plyr,
+    dplyr,
+    tidyr,
+    reshape2,
+    proto,
+    ggplot2,
+    gplots,
+    colorRamps,
+    limma,
+    edgeR,
+    DESeq2,
+    TTR
+Suggests:
+    GSEAMA,
+    gridExtra,
+    knitr
+VignetteBuilder: knitr
+License: MIT + file LICENSE
+LazyData: true

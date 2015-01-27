@@ -1,0 +1,31 @@
+Gene	Product	ORF	Process
+Hxk1p	Hexokinase I	YFR053C	Glycolysis
+Glk1p	Glucokinase	YCL040W	Glycolysis
+Fba1p	Fructose1,6-bisphosphateadolase	YKL060C	Glycolysis
+Tpi1p	Triosephosphate isomerase	YDR050C	Glycolysis
+Tdh2p	Glyceraldehyde3-phosphatedehydrogenase	YJR009C	Glycolysis
+Tdh3p	Glyceraldehyde-3-phosphatedehydrogenase 3	YGR192C	Glycolysis
+Pgk1p	3-phosphoglycerate kinase	YCR012W	Glycolysis
+Gpm1p	Phosphoglycerate mutase	YKL152C	Glycolysis
+Eno1p	Enolase I	YGR254W	Glycolysis
+Eno2p	Enolase	YHR174W	Glycolysis
+Pda1p	Pyruvate dehydrogenase alpha subunit	YER178W	Pyruvate branchpoint
+Adh1p	Alcohol dehydrogenase	YOL086C	Pyruvate branchpoint
+Adh2p	Alcohol dehydrogenase II	YMR303C	Pyruvate branchpoint
+Ald4p	Aldehyde dehydrogenase	YOR374W	Pyruvate branchpoint
+Ald6p	Aldehyde dehydrogenase	YPL061W	Pyruvate branchpoint
+Cit1p	Citrate synthase	YNR001C	TCA cycle 
+Aco1p	Aconitase	YLR304C	TCA cycle 
+Idh1p	NAD-dependent isocitrate dehydrogenase 1	YNL037C	TCA cycle 
+Idh2p	NAD-dependent isocitrate dehydrogenase	YOR136W	TCA cycle 
+Idp2p	NADP-dependent isocitrate dehydrogenase	YLR174W	TCA cycle 
+Kgd2p	Alpha-ketoglutarate dehydrogenase	YDR148C	TCA cycle 
+Lsc1p	Succinyl-CoA ligase (alphasubunit)	YOR142W	TCA cycle 
+Lsc2p	Succinyl-CoA ligase (betasubunit)	YGR244C	TCA cycle 
+Sdh1p	Succinate dehydrogenase	YKL148C	TCA cycle 
+Fum1p	Fumarase	YPL262W	TCA cycle 
+Mdh1p	Mitochondrial malate dehydrogenase	YKL085W	TCA cycle 
+Mdh2p	Cytosolic malate dehydrogenase	YOL126C	TCA cycle 
+Icl1p	Isocitrate lyase	YER065C	Gluconeogenesis
+Mls1p	Malate synthase	YNL117W	Gluconeogenesis
+Pck1p	Phosphoenolpyruvate carboxylkinase	YKR097W	Gluconeogenesis

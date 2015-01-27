@@ -1,0 +1,219 @@
+\begin{thebibliography}{10}
+
+\bibitem{tHoen:2008hn}
+P~A {'t Hoen}, Y~Ariyurek, H~H Thygesen, E~Vreugdenhil, R~H Vossen, R~X {de
+  Menezes}, J~M Boer, G~J van Ommen, and J~T {den Dunnen}.
+\newblock {Deep sequencing-based expression analysis shows major advances in
+  robustness, resolution and inter-lab portability over five microarray
+  platforms}.
+\newblock {\em Nucleic Acids Res}, 36(21):e141, 2008.
+
+\bibitem{Zhao:2014gb}
+Shanrong Zhao, Wai-Ping Fung-Leung, Anton Bittner, Karen Ngo, and Xuejun Liu.
+\newblock {Comparison of RNA-Seq and Microarray in Transcriptome Profiling of
+  Activated T Cells}.
+\newblock {\em PloS one}, 9(1):e78644, January 2014.
+
+\bibitem{Willenbrock:2009jv}
+Hanni Willenbrock, Jesper Salomon, Rolf S{\o}kilde, Kim~Bundvig Barken,
+  Thomas~N{\o}hr Hansen, Finn~Cilius Nielsen, S{\o}ren M{\o}ller, and Thomas
+  Litman.
+\newblock {Quantitative miRNA expression analysis: comparing microarrays with
+  next-generation sequencing.}
+\newblock {\em RNA}, 15(11):2028--2034, November 2009.
+
+\bibitem{McIntyre:2011fn}
+Lauren~M McIntyre, Kenneth~K Lopiano, Alison~M Morse, Victor Amin, Ann~L Oberg,
+  Linda~J Young, and Sergey~V Nuzhdin.
+\newblock {RNA-seq: technical variability and sampling}.
+\newblock {\em BMC Genomics}, 12(1):293, 2011.
+
+\bibitem{Novak:2002dw}
+Jaroslav~P Novak, Robert Sladek, and Thomas~J Hudson.
+\newblock {Characterization of variability in large-scale gene expression data:
+  implications for study design.}
+\newblock {\em Genomics}, 79(1):104--113, January 2002.
+
+\bibitem{Tu:2002hr}
+Y~Tu, G~Stolovitzky, and U~Klein.
+\newblock {Quantitative noise analysis for gene expression microarray
+  experiments.}
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, 99(22):14031--14036, October 2002.
+
+\bibitem{Labaj:2011co}
+Pawe{\l}~P Łabaj, Germ{\'a}n~G Leparc, Bryan~E Linggi, Lye~Meng Markillie,
+  H~Steven Wiley, and David~P Kreil.
+\newblock {Characterization and improvement of RNA-Seq precision in
+  quantitative transcript expression profiling.}
+\newblock {\em Bioinformatics}, 27(13):i383--91, July 2011.
+
+\bibitem{Tarazona:2011fi}
+Sonia Tarazona, Fernando Garc{\'\i}a-Alcalde, Joaqu{\'\i}n Dopazo, Alberto
+  Ferrer, and Ana Conesa.
+\newblock {Differential expression in RNA-seq: a matter of depth}.
+\newblock {\em Genome Research}, 21(12):2213--2223, 2011.
+
+\bibitem{Bullard:2010p2947}
+J~H Bullard, E~Purdom, and K~D Hansen.
+\newblock {Evaluation of statistical methods for normalization and differential
+  expression in mRNA-Seq experiments}.
+\newblock {\em BMC Genomics}, 11(94), 2010.
+
+\bibitem{Law:2014tta}
+C~W Law, Y~Chen, W~Shi, and G~K Smyth.
+\newblock {Voom: precision weights unlock linear model analysis tools for
+  RNA-seq read counts}.
+\newblock {\em Genome biology}, 15(R29), 2014.
+
+\bibitem{Hurlbert:1984cy}
+Stuart~H Hurlbert.
+\newblock {Pseudoreplication and the Design of Ecological Field Experiments}.
+\newblock {\em Ecol Monogr}, 54(2):187--211, 1984.
+
+\bibitem{Smyth:2005wm}
+Gordon~K Smyth.
+\newblock Limma: Linear models for microarray data.
+\newblock In Robert Gentleman, Vincent Carey, Sandrine Dudoit, Rafael Irizarry,
+  and Wolfgang Huber, editors, {\em Bioinformatics and computational biology
+  solutions using R and Bioconductor}, pages 397--420. Springer, New York,
+  2005.
+
+\bibitem{Robinson:2010p9965}
+M~Robinson and A~Oshlack.
+\newblock {A scaling normalization method for differential expression analysis
+  of RNA-seq data}.
+\newblock {\em Genome Biology}, 11:R25, 2010.
+
+\bibitem{Anders:2010fua}
+Simon Anders and Wolfgang Huber.
+\newblock {Differential expression analysis for sequence count data}.
+\newblock {\em Genome Biology}, 11(10):R106, 2010.
+
+\bibitem{Novick:1950va}
+A~Novick and L~Szilard.
+\newblock {Description of the chemostat}.
+\newblock {\em Science}, 112(2920):715--716, 1950.
+
+\bibitem{Kolkman:2005tz}
+A~Kolkman, MMA Olsthoorn, and CEM Heeremans.
+\newblock {Comparative proteome analysis of Saccharomyces cerevisiae grown in
+  chemostat cultures limited for glucose or ethanol}.
+\newblock {\em Mol Cell Proteomics}, 2005.
+
+\bibitem{ST03}
+J.~D. Storey and R.~Tibshirani.
+\newblock Statistical significance for genome-wide studies.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  100:9440--9445, 2003.
+
+\bibitem{ColinCameron:1997iv}
+A~C Cameron and Frank Windmeijer.
+\newblock {An R-squared measure of goodness of fit for some common nonlinear
+  regression models}.
+\newblock {\em J Econometrics}, 77(2):329--342, 1997.
+
+\bibitem{Love:2014vr}
+M~I Love, W~Huber, and S~Anders.
+\newblock {Moderated estimation of fold change and dispersion for RNA-Seq data
+  with DESeq2}.
+\newblock {\em bioRxiv}, http://dx.doi.org/10.1101/002832, 2014.
+
+\bibitem{Ambroise:2011hb}
+J{\'e}r{\^o}me Ambroise, Bertrand Bearzatto, Annie Robert, Bernadette Govaerts,
+  Beno{\^\i}t Macq, and Jean-Luc Gala.
+\newblock {Impact of the spotted microarray preprocessing method on fold-change
+  compression and variance stability.}
+\newblock {\em BMC Bioinformatics}, 12:413, 2011.
+
+\bibitem{Subramanian:2005jt}
+Aravind Subramanian, Pablo Tamayo, Vamsi~K Mootha, Sayan Mukherjee, Benjamin~L
+  Ebert, Michael~A Gillette, Amanda Paulovich, Scott~L Pomeroy, Todd~R Golub,
+  Eric~S Lander, and Jill~P Mesirov.
+\newblock {Gene set enrichment analysis: a knowledge-based approach for
+  interpreting genome-wide expression profiles}.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  102(43):15545--15550, 2005.
+
+\bibitem{Ackermann:2009bw}
+Marit Ackermann and Korbinian Strimmer.
+\newblock {A general modular framework for gene set enrichment analysis}.
+\newblock {\em BMC Bioinformatics}, 10:47, 2009.
+
+\bibitem{Gresham:2011iq}
+David Gresham, Viktor~M Boer, Amy Caudy, Naomi Ziv, Nathan~J Brandt, John~D
+  Storey, and David Botstein.
+\newblock {System-level analysis of genes and functions affecting survival
+  during nutrient starvation in Saccharomyces cerevisiae}.
+\newblock {\em Genetics}, 187(1):299--317, 2011.
+
+\bibitem{Hung:2012fp}
+Jui-Hung Hung, Tun-Hsiang Yang, Zhenjun Hu, Zhiping Weng, and Charles Delisi.
+\newblock {Gene set enrichment analysis: performance evaluation and usage
+  guidelines.}
+\newblock {\em Briefings in Bioinformatics}, 13(3):281--291, May 2012.
+
+\bibitem{Alicia:2009p2913}
+Alicia Oshlack and Matthew~J Wakefield.
+\newblock {Transcript length bias in RNA-seq data confounds systems biology}.
+\newblock {\em Biology Direct}, 4(14), 2009.
+
+\bibitem{Gao:2011p9925}
+L~Gao, Z~Fang, K~Zhang, and D~Zhi.
+\newblock {Length bias correction for RNA-seq data in gene set analyses}.
+\newblock {\em Bioinformatics}, 2011.
+
+\bibitem{Robinson:2014hz}
+David~G Robinson, Wei Chen, John~D Storey, and David Gresham.
+\newblock {Design and analysis of Bar-seq experiments.}
+\newblock {\em G3: Genes, Genomes, Genetics}, 4(1):11--18, 2014.
+
+\bibitem{Outten:2013dl}
+Caryn~E Outten and Angela-Nadia Albetel.
+\newblock {Iron sensing and regulation in Saccharomyces cerevisiae: Ironing out
+  the mechanistic details}.
+\newblock {\em Curr Opin Microbiol}, 16(6):662--668, 2013.
+
+\bibitem{Morano:2012jy}
+K~A Morano, C~M Grant, and W~S Moye-Rowley.
+\newblock {The Response to Heat Shock and Oxidative Stress in Saccharomyces
+  cerevisiae}.
+\newblock {\em Genetics}, 190(4):1157--1195, 2012.
+
+\bibitem{Lange:1999ja}
+H~Lange.
+\newblock {Mechanism of Iron Transport to the Site of Heme Synthesis inside
+  Yeast Mitochondria}.
+\newblock {\em J Biol Chem}, 274(27):18989--18996, 1999.
+
+\bibitem{Simon:1997ep}
+V~R Simon, S~L Karmon, and L~A Pon.
+\newblock {Mitochondrial inheritance: cell cycle and actin cable dependence of
+  polarized mitochondrial movements in Saccharomyces cerevisiae}.
+\newblock {\em Cell Motil Cytoskel}, 37(3):199--210, 1997.
+
+\bibitem{Boldogh:2005gq}
+Istvan~R Boldogh, Kammy~L Fehrenbacher, Hyeong-Cheol Yang, and Liza~A Pon.
+\newblock {Mitochondrial movement and inheritance in budding yeast}.
+\newblock {\em Gene}, 354:28--36, 2005.
+
+\bibitem{Camougrand:2000jz}
+N~M Camougrand, M~Mouassite, G~M Velours, and M~G Gu{\'e}rin.
+\newblock {The 'SUN' Family: UTH1, an Ageing Gene, Is Also Involved in the
+  Regulation of Mitochondria Biogenesis in Saccharomyces cerevisiae}.
+\newblock {\em Arch Biochem Biophys}, 375(1):154--160, 2000.
+
+\bibitem{Velours:2002jb}
+Gisele Velours, Catherine Boucheron, Stephen Manon, and Nadine Camougrand.
+\newblock {Dual cell wall/mitochondria localization of the 'SUN' family
+  proteins}.
+\newblock {\em FEMS Microbiol Lett}, 207(2):165--172, 2002.
+
+\bibitem{Camougrand:2004bx}
+Nadine Camougrand, Ingrid Ki{\v s}{\v s}ov{\'a}, Gisele Velours, and Stephen
+  Manon.
+\newblock {Uth1p: a yeast mitochondrial protein at the crossroads of stress,
+  degradation and cell death}.
+\newblock {\em FEMS Yeast Res}, 5(2):133--140, 2004.
+
+\end{thebibliography}

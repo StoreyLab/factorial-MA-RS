@@ -1,0 +1,405 @@
+\documentclass{article}
+
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{supplementary}
+
+\usepackage{hyperref}
+\usepackage{NAR-natbib}
+
+\begin{document}
+
+%% load saved data
+<<options, echo = FALSE>>=
+library(knitr)
+opts_chunk$set(tidy = TRUE, message = FALSE, cache = TRUE,
+               echo = FALSE, results = "hide", warning = FALSE,
+               dependson = "setup", cache.path = "supplementary_cache/",
+               fig.path = "supplementary_figure/")
+@
+
+<<setup>>=
+library(factorial)
+
+load("saved_objects.Rdata")
+@
+
+\clearpage
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}%
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}%
+\section{Supplementary Methods}
+
+\subsection{Experimental Protocol}
+
+\begin{itemize}
+\item Details of the media used can be found at \url{http://www.princeton.edu/genomics/botstein/protocols/Dex_lim.htm}.
+\item Details of the protocol for harvesting RNA from the chemostat can be found at \url{http://dunham.gs.washington.edu/MDchemostat.pdf}.
+\item The R64 release of the \emph{S. cerevisiae} genome is available at \url{http://downloads.yeastgenome.org/sequence/S288C_reference/genome_releases/}.
+\end{itemize}
+
+\subsection{Percent of Variance Explained}
+
+Percent of variance explained by each level was computed by using ANOVA to compare three nested linear models. The three methods represented, respectively, treatment, treament$\times$biological, and treatment$\times$biological$\times$preparation.  Each takes the form
+
+$$Y = \beta {X_{1:p+1}}^T + E$$
+where
+
+\begin{itemize}
+\item $p$ is the number of degrees of freedom used by the parameters in the model (respectively 1, 3, and 7 for the three models)
+\item $g$ is the number of genes
+\item $Y$ is the $g\times16$ matrix of red/green fold changes in microarray data or the log-transformed counts of RNA-Seq data
+\item $X_{1:p+1}$ is the first $p+1$ columns of the experimental design matrix (Figure \ref{fig:design_matrix}), which includes the intercept and the $p$ terms fit in the model
+\item $\beta$ is the $g\times (p + 1)$ matrix of terms
+\item $E$ is the $g\times16$ matrix of normally distributed residuals
+\end{itemize}
+
+An adjusted $R^2$ was found for each of the models ($1-\frac{RSS(16-1)}{TSS(16-p-1)}$), as shown:
+\begin{center}
+\begin{tabular}{| p{6.5cm} | p{.7cm} | p{2.5cm} |}
+\hline
+Model & $p$ & Adjusted $R^2$ \\
+\hline
+Treatment & 1 & $R^2_T$ \\
+Treatment$\times$Biological & 3 & $R^2_B$ \\
+Treatment$\times$Biological$\times$Preparation & 7 & $R^2_P$ \\
+\hline
+\end{tabular}
+\end{center}
+The percent of variation explained by each level was reported for each gene as $R^2_T$ for the treatment variation, $R^2_B-R^2_T$ for the biological variation, $R^2_P-R^2_B$ for the preparation variation, and $1-R^2_P$ for the residual variation that occurs on the chip or the lane. This metric is meant to break down the amount that the quantification of expression, and therefore the differential expression estimation, is affected by each level.
+
+Since RNA-Seq data consists of counts rather than continuous measurements, we considered the possibility that the linear model, and therefore the $R^2$ measure, might not capture the distribution of variation correctly. We thus also calculated two alternative $R^2$ generalized across exponential families: $R_{{DEV,P}}^2$ which assumes a Poisson model for the residual noise, and $R_{DEV,NB2(ML)}^2$, which assumes a negative binomial model \cite{ColinCameron:1997iv}. This metric is defined as the decrease in Kullback-Leibler divergence between the observations and the expectation under the full model versus the divergence between the observations and the expectation under a null model. The standard $R^2$ used in linear models with normal residuals can be viewed as a special case of this metric, so this divergence is a useful choice for comparing the count values to the traditional $R^2$ used in the microarray \cite{Cameron:1996dx}.
+
+We used the edgeR package to perform a negative binomial fit on each gene and estimate the dispersion parameter. We define $y_{i,j}$ as the unnormalized count of gene $i$ in sample $j$, $\hat{\mu_{i,j}}$ as the expected value of $y_{i,j}$ under the full model (using \texttt{fitted} on an edgeR fit), $\bar{y}_{i,j}$ as the expected value using only an intercept term and the library size normalization, $\hat{\alpha_i}$ is the dispersion of gene $i$ estimated using edgeR, $n$ is the number of samples (16) and $p$ is the number of parameters estimated by the model (1 for the condition effect, 3 for condition$\times$biological, and 7 for condition$\times$biological$\times$preparation). The alternative $R^2$ estimates for the Poisson and negative binomial models can then be calculated as
+$$R^2_{DEV,P,i}=1-\frac{\sum_{j=1}^N{y_{i,j}\log(y_{i,j}/\hat{\mu}_{i,j})-(y_{i,j} - \bar{\mu}_{i,j})}}{\sum_{j=1}^Ny_{i,j}\log(y_{i,j}/\bar{y}_{i,j}) - (y_{i,j} - \bar{y}_{i,j})}\frac{n-1}{n-p-1},$$
+$$R^2_{DEV,NB2(ML),i}=1-\frac{\sum_{j=1}^N{y_{i,j}\log(\hat{y_{i,j}}/\hat{\mu}_{i,j})-(y_i+\hat{\phi}_i^{-1})\log(\frac{y_{i,j}+\hat{\phi}_i^{-1}}{\hat{\mu}_{i,j}+\hat{\phi}_i^{-1}}))}}{\sum_{j=1}^N{y_{i,j}\log(\hat{y_{i,j}}/\hat{\bar{y}_{i,j})-(y_i+\hat{\phi}_i^{-1})\log(\frac{y_{i,j}+\hat{\phi}_i^{-1}}{\bar{y}_{i,j}+\hat{\phi}_i^{-1}}))}}}\frac{n-1}{n-p-1}.$$
+
+The same three models fit in the traditional linear model were fit using Poisson or negative binomial regression, using edgeR's implementation:
+$$Y_{i,\cdot} \sim \mbox{Pois}(\exp({\beta_i {X_{i, 1:p+1}}^T}))$$
+$$Y_{i,\cdot} \sim \mbox{NegBin}(\exp({\beta_i {X_{i, 1:p+1}}^T)}), \alpha_{i})$$
+then their respective $R^2_T$, $R^2_B$ and $R^2_P$ were calculated for each gene based on the difference in adjusted alternative $R^2$ between each model. Figure \ref{fig:pseudo_R2} compares the Poisson and negative binomial models to the traditional $R^2$ on log TMM-normalized counts. TMM was chosen since it is the default used for edgeR normalization, and Figure \ref{fig:compare_normalization} shows that TMM produces similar results to other normalization methods.
+
+\renewcommand\refname{Supplemental References}
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\clearpage
+
+% \begin{figure}
+% <<smear, dependson="fulldata">>=
+% # gather (melt) coefficients, intensity, etc
+% library(ggplot2)
+% smeardat <- tidied %>% filter(sub == "Full") %>% arrange(Process)
+%
+% # change fulldata process names to include significance
+%
+% # need to average between RNA-Seq and Microarray
+% add_counts_average <- function(f) {
+%     levels(f) <- paste0(levels(f), " (", round(table(f) / 2), ")")
+%     f
+% }
+%
+% smeardat <- smeardat %>%
+%     mutate(Process =
+%              ifelse(grepl("Other", Process),
+%                     ifelse(q.value < .05, "Significant", "Not Significant"),
+%                     as.character(Process))) %>%
+%     mutate(Process = add_counts_average(factor(Process))) %>%
+%     mutate(Technology = ifelse(technology == "MA", "Microarray", "RNA-Seq"))
+%
+% # order to put significant and not significant first
+% lvls <- levels(smeardat$Process)[order(!grepl("Significant", levels(smeardat$Process)))]
+% smeardat$Process <- factor(smeardat$Process, levels = lvls)
+%
+% smear <- ggplot(smeardat, aes(intensity, estimate, color = Process)) +
+%     geom_point() +
+%     facet_wrap(~ Technology, scales = "free", ncol = 1) +
+%     scale_color_manual(values = c("gray", color_order)) +
+%     xlab("Quantile of microarray intensity or RNA-Seq read depth")
+%
+% smear
+% #RS_smear <- ggplot(fulldata, aes(RS.intensityraw, RS.estimate, color = Process)) +
+% #    geom_point() + scale_x_log10() + color_scale
+%
+% #library(gridExtra)
+% #print(arrangeGrob(MA_smear, RS_smear, ncol = 1))
+% @
+% \caption{Smear plots of the microarray and RNA-Seq experiments.}
+% \end{figure}
+
+\begin{figure}[!h]
+<<cor_heatmaps, dependson="merge_data", fig.width=10, fig.height=5>>=
+library(ggplot2)
+library(gplots)
+library(reshape2)
+library(colorRamps)
+library(gridExtra)
+
+make.matrix.plot = function(m) {
+    cormatrix = cor(m, method = "spearman")
+    cormatrix.m = melt(cormatrix)
+	colnames(cormatrix.m) = c("X1", "X2", "Correlation")
+	cormatrix.m$X2 = factor(cormatrix.m$X2, levels=rev(levels(cormatrix.m$X2)))
+	cor.heatmap.plot = ggplot(cormatrix.m, aes(x=X1, y=X2)) + geom_tile(aes(fill=Correlation)) + xlab("") + ylab("") + scale_fill_gradient(limits=c(min(cormatrix), 1), low="blue", high="yellow") + theme(axis.text.x=element_text(angle=-90, hjust=0))
+}
+
+data(microarrayMatrix)
+data(rnaseqMatrix)
+
+h1 = make.matrix.plot(microarrayMatrix) + ggtitle("Microarray")
+h2 = make.matrix.plot(rnaseqMatrix) + ggtitle("RNA-Seq")
+
+g = arrangeGrob(h1, h2, nrow=1)
+print(g)
+
+#par(mfrow=c(2, 1))
+#heatmap.2(cor(microarrayMatrix, method="spearman"), dendrogram="column", Rowv=NA, trace="n", col = blue2yellow(1000), cexRow=.65, cexCol=.65)
+#heatmap.2(cor(foldChange.matrix, method="spearman"), dendrogram="none", Rowv=NA, Colv=NA, trace="n", col = blue2yellow(1000), cexRow=.65, cexCol=.65)
+@
+\caption{Spearman correlation matrices of microarray and RNA-Seq experiments. The microarray correlation matrix uses the log(cy5/cy3) fold change, which means the correlation can be negative, while the RNA-Seq matrix uses the raw counts, which means the correlation is always close to 1.\label{fig:heatmaps}}
+\end{figure}
+
+\begin{figure}
+<<binned_tests, dependson = "process_R2s">>=
+library(broom)
+library(plyr)
+library(dplyr)
+
+# code adapted from http://stackoverflow.com/questions/11053899
+library(scales)
+reverseloglog_trans <- function(base = exp(1)) {
+    trans <- function(x) log(-log(x, base), base)
+    inv <- function(x) base^(-(base^x))
+    trans_new(paste0("reverseloglog-", format(base)), trans, inv,
+              function(x) c(.6, .1, 1e-05, 1e-25),
+              domain = c(1e-300, Inf))
+}
+
+r2s <- geneR2s_quantile %>% mutate(bin = cut(Quantile, seq(0, 1, .1))) %>%
+    group_by(Level, bin)
+binned_tests <- r2s %>% do(tidy(wilcox.test(.$value ~ .$technology)))
+binned_tests$estimate <- (r2s %>% do(tidy(t.test(.$value ~ .$technology))))$estimate
+binned_tests <- binned_tests %>%
+    mutate(Greater = ifelse(estimate > 0, "RNA-Seq", "Microarray"))
+
+ggplot(binned_tests, aes(bin, p.value, color = Level, group = Level)) +
+    geom_line() + geom_point(aes(shape = Greater), size = 3) +
+    scale_y_log10() + geom_hline(yintercept = .05, col = "red", lty = 2) +
+    xlab("Bin of microarray intensity or RNA-Seq depth") +
+    ylab(expression(atop(paste("P-value of Wilcoxon test for ", italic(R)^2, " contribution")))) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+@
+\caption{Wilcoxon rank-sum test p-values comparing the percent of variance explained at each level between RNA-Seq and microarrays, in each of 10 bins based on the intensity quantile. The shape of each point indicates whether RNA-Seq or microarrays showed higher $R^2$ at that stage. The p-values are shown on a log scale, with p = 0.05 shown as a horizontal dashed line.\label{fig:binned_tests}}
+\end{figure}
+
+\begin{figure}
+<<R2_normalization_figure, dependson="process_R2s">>=
+gnorm <- ggplot(geneR2s, aes(Quantile, value, color=Level, lty=normalize.method)) +
+    geom_smooth(method="loess", se=FALSE) +
+    facet_wrap(~ technology) +
+    xlab("Quantile of microarray intensity or RNA-Seq read depth") +
+    ylab("Smoothed % of variation explained") +
+    labs(lty = "Normalization method")
+gnorm
+@
+\caption{Percent of variance explained by each nested level of the experiment, comparing several normalization methods. ``None'', ``scale'', ``quantile'' and ``cyclicloess'' denote options used in \texttt{normalizeBetweenArrays} in the limma R package, TMM denotes the trimmed mean of M-values method of Robinson and Oshlack 2010, and RLE denotes the ``relative log expression'' method of Anders and Huber 2010. TMM and RLE were applied only to the RNA-Seq data.\label{fig:compare_normalization}}
+\end{figure}
+
+\begin{figure}
+<<pseudo_R2_compare_poisson_negbin, dependson="pseudo_R2">>=
+ggplot(R2s.combined, aes(Quantile, value, color=Level, lty=Method)) +
+    stat_smooth(method = "loess", se = FALSE) +
+    xlab("Quantile of RNA-Seq read depth") +
+    ylab("Smoothed % of variation explained")
+@
+\caption{Comparison of an $R^2$ from ANOVA computed for transformed RNA-Seq, using TMM normalization, to a pseudo-$R^2$ metric making use of either a Poisson or a negative binomial model. \label{fig:pseudo_R2}}
+\end{figure}
+
+% \begin{figure}
+% <<R2s_boxplot, dependson = "binned_tests">>=
+% ggplot(r2s, aes(bin, value, color = technology)) + geom_boxplot() +
+%     facet_wrap(~ Level, scales = "free_y")
+% @
+% \caption{Boxplots of $R^2$ by bin within each level. Likely will not be included in paper.}
+% \end{figure}
+
+% \begin{figure}
+% <<sigrank, dependson="fulldata">>=
+% pathway.genes <- fulldata %>% filter(!is.na(Gene))
+% g <- ggplot(pathway.genes, aes(RS.significance, MA.significance, color=Process)) +
+%     geom_point() + geom_abline(col="red")
+%
+% g
+% @
+% \caption{Comparison between microarrays and RNA-Seq of the ranks of the p-values for differential expression on a set of genes in pathways related to glucose and ethanol metabolism. NOTE: I think we should remove this figure as it is misleading.}
+% \end{figure}
+
+<<g_legend>>=
+library(ggplot2)
+
+g_legend <- function(a.gplot) {
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+	legend <- tmp$grobs[[leg]]
+	return(legend)
+}
+@
+
+\begin{figure}
+<<wilcoxon_histogram_depth, dependson = "wilcox_sets_depth">>=
+ggplot(wilcox_sets, aes(pvalue)) + geom_histogram(binwidth = .05) +
+    facet_grid(metric + technology ~ bin) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    xlab("P-values for enrichment of each GO term")
+@
+\caption{P-value histograms for Wilcoxon tests of gene set enrichment. The plot is divided vertically based on the technology (micrarray or RNA-Seq) and metric (log fold change estimate or p-value) used in the enrichment analysis, and horizontally based on the quantile of the average intensity within each gene. \label{fig:wilcoxon_histograms}}
+\end{figure}
+
+<<violin, dependson = c("setup", "g_legend")>>=
+library(proto)
+library(GSEAMA)
+
+# I wish I could keep the data to plot combined and tidy.
+# However, that loses the ordering, so I have to construct separately
+
+rot <- theme(axis.text.x=element_text(color="black", angle = 90, vjust = 0.5, size=6))
+
+plotSets = function(sets) {
+    # this function is mostly a hack, kept from original manuscript
+    microarray.dat = CompareY(gseama_objs$gseama[[1]], sets)$data
+    microarray.dat$Technology = "Microarray"
+    RNA.Seq.dat = CompareY(gseama_objs$gseama[[3]], sets)$data
+    RNA.Seq.dat$Technology = "RNA-Seq"
+
+    # fix set names to wrap
+    #microarray.dat$Set = sapply(microarray.dat$Set, function(s) paste(strwrap(s, width=20), collapse="\n"))
+    #RNA.Seq.dat$Set = sapply(RNA.Seq.dat$Set, function(s) paste(strwrap(s, width=20), collapse="\n"))
+
+    # get rid of extreme cases in Overall from low depths, which distract
+    microarray.dat = microarray.dat[abs(microarray.dat$y) < 4 | microarray.dat$Set != "Overall", ]
+    RNA.Seq.dat = RNA.Seq.dat[abs(RNA.Seq.dat$y) < 4 | RNA.Seq.dat$Set != "Overall", ]
+
+    (ggplot(microarray.dat, aes(Set, y, fill=Technology)) +
+            geom_sided_violin(aes(side=0)) +
+            geom_sided_violin(aes(side=1), data=RNA.Seq.dat) +
+            rot + coord_flip())
+}
+
+num_genes = 12
+ordered_sets = set_pvalues %>% arrange(pmax(MA.estimate, RS.estimate))
+
+top_IDs <- function(ontology) head((ordered_sets %>% filter(Ontology == ontology))$ID, num_genes)
+
+BP.p = plotSets(top_IDs("BP"))
+CC.p = plotSets(top_IDs("CC"))
+MF.p = plotSets(top_IDs("MF"))
+@
+
+\begin{figure}
+<<BP_violin, fig.height=8, fig.width=8, dependson="violin">>=
+print(BP.p + theme(legend.position="top", axis.text.y=element_text(size=14, face="bold")) + coord_flip()
+      + ylim(-2, 2) + ylab("Distribution of log2(G/E) estimates"))
+@
+\caption{The \Sexpr{num_genes} sets that were found most significantly differentially expressed in microarrays and RNA-Seq, within the Biological Process ontology. \label{fig:GSEA_violins1}}
+\end{figure}
+
+\begin{figure}
+<<GSEAL_plot_CC, fig.height=8, fig.width=8, dependson="violin">>=
+print(CC.p + theme(legend.position="top", axis.text.y=element_text(size=14, face="bold")) + coord_flip() +
+          ylim(-2, 2) + ylab("Distribution of log2(G/E) estimates"))
+@
+\caption{The \Sexpr{num_genes} sets that were found most significantly differentially expressed in microarrays and RNA-Seq, within the Cellular Compartment ontology.\label{fig:GSEA_violins2}}
+\end{figure}
+
+\begin{figure}
+<<GSEAL_plot_MF, fig.height=8, fig.width=8, dependson="violin">>=
+print(MF.p + theme(legend.position="top", axis.text.y=element_text(size=14, face="bold")) + coord_flip() +
+          ylim(-2, 2) + ylab("Distribution of log2(G/E) estimates"))
+@
+\caption{The \Sexpr{num_genes} sets that were found most significantly differentially expressed in microarrays and RNA-Seq, within the Molecular Function ontology.\label{fig:GSEA_violins3}}
+\end{figure}
+
+\begin{figure}
+<<design_matrix_heatmap, dependson="pseudo_R2">>=
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+
+data(experimentDesign)
+data(rnaseqMatrix)
+
+mm = with(experimentDesign, model.matrix(~ condition + condition:biological + condition:biological:preparation))
+mmm = melt(mm)
+colnames(mmm) = c("Sample", "Term", "Value")
+
+mmm$Sample = factor(colnames(rnaseqMatrix)[mmm$Sample])
+mmm$Sample = factor(mmm$Sample, rev(levels(mmm$Sample)))
+mmm$Value = factor(mmm$Value)
+mmm$Term = factor(mmm$Term, colnames(mm))
+levels(mmm$Term) = sub("condition", "treatment", levels(mmm$Term))
+g <- ggplot(mmm, aes(Term, Sample, fill=Value)) + geom_tile() +
+    theme_bw() +
+    theme(axis.text.x=element_text(angle=-90, hjust=0, size = 9)) +
+    xlab("") +
+    theme(plot.margin = unit(c(1,1,2,2), "cm"))
+
+bracket <- function(xmin, xmax, ytop) {
+    ret <- annotation_custom(grob = polylineGrob(
+        x = unit(c(xmin, xmin, xmax, xmax), "npc"),
+        y = unit(c(ytop, ytop - .05, ytop - .05, ytop), "npc")))
+    ret
+}
+
+leftlabel <- function(text, y) {
+    annotation_custom(grob = textGrob(text, x = unit(0, "npc"),
+                                      y = unit(y - .025, "npc"),
+                                      gp = gpar(fontsize = 10), hjust = 1))
+}
+
+xmax <- c(.12, .23, .45, .95)
+ypos <- c(-.3, -.4, -.5, -.6)
+n <- c("Null", "Treatment", "Treatment x Bio", "Treatment x Bio x Prep")
+
+for (i in 1:length(xmax)) {
+    g <- g + bracket(0.025, xmax[i], ypos[i]) + leftlabel(n[i], ypos[i])
+}
+
+# Code to override clipping
+gt <- ggplot_gtable(ggplot_build(g))
+gt$layout$clip[gt$layout$name=="panel"] <- "off"
+grid.draw(gt)
+@
+\caption{The design matrix $X$ used to fit linear models to the nested experiment and determine $R^2$. The Null, Treatment, Treatment$\times$Biological, and Treatment$\times$Biological$\times$Preparation models use 1, 2, 4, or 8 columns of this matrix, respectively, as shown. \label{fig:design_matrix}}
+\end{figure}
+
+
+%
+% <<pvals_hist_all, dependson="tidy_eb">>=
+% library(ggplot2)
+%
+% ggplot(tidied, aes(p.value)) + geom_histogram() + facet_grid(technology ~ normalize.method)
+% @
+%
+% <<coefs_pvals>>=
+% library(tidyr)
+% library(dplyr)
+%
+% tidied.u <- tidied %>% filter(normalize.method == "scale") %>%
+%     unite(approach, technology:sub, sep="_")
+%
+% coefs <- tidied.u %>% select(approach, coefficient, gene) %>% spread(approach, coefficient)
+% coefs.matrix <- na.omit(as.matrix(coefs %>% select(-gene)))
+%
+% pvals <- tidied.u %>% select(approach, p.value, gene) %>% spread(approach, p.value)
+% pvals.matrix <- na.omit(as.matrix(pvals %>% select(-gene)))
+% @
+%
+% <<heatmap_coefs, dependson="coefs_pvals">>=
+% heatmap(cor(coefs.matrix))
+% heatmap(cor(pvals.matrix, method="spearman"))
+% @
+
+
+
+\end{document}
