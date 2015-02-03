@@ -31,6 +31,8 @@
 \usepackage{amssymb}
 \usepackage{epstopdf}
 \usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{gensymb}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 % JOHN ADDED
@@ -439,13 +441,13 @@ The experiment was performed using yeast haploid strain DBY 12000 FY, a S288C de
 
 \subsubsection{Microarray and RNA-Seq.}
 
-RNA was harvested from each of the 4 samples. The 4 RNA samples were then processed twice on different days using the Agilent Quick Amp Labeling kit (Part no. 5190-0424) to produce 8 cRNA libraries, each of which was then hybridized on two separate chips (Yeast Expression 8x15K arrays) on different days according to the factorial design.  After the arrays are washed and scanned, features are extracted using the Agilent Feature Extraction software to determine red and green intensities.
+RNA was harvested from each of the 4 samples. The 4 RNA samples were then processed twice on different days using the Agilent Quick Amp Labeling kit (Part no. 5190-0424) to produce 8 cRNA libraries, each of which was then hybridized on two separate chips (Yeast Expression 8x15K arrays) on different days according to the factorial design.  After the arrays were washed and scanned, features were extracted using the Agilent Feature Extraction software to determine red and green intensities.
 
-The same 4 RNA samples were also processed using the Illumina TruSeq RNA Sample Prep v2 LS protocol.  Each sample was prepared twice up to the 3' end adenylation, then each of the 8 preparations was split into two aliquots, after which each was indexed and amplified to complete the RNA-Seq library preparation. The two groups of 8 samples that were indexed together were each mixed at equimolar concentrations and sequenced on separate lanes on the same Illumina HiSeq 2500 flowcell, to produce 141bp reads. In total, we produced profiles from 16 RNA-Seq samples and 16 microarray samples with identically nested experimental designs.
+The same 4 RNA samples were also processed using the Illumina TruSeq RNA Sample Prep v2 LS protocol.  Each sample was prepared twice up to the 3' end adenylation step, then each of the 8 preparations was split into two aliquots, after which each was indexed and amplified to complete the RNA-Seq library preparation. The two groups of 8 samples that were indexed together were each mixed at equimolar concentrations and sequenced on separate lanes on the same Illumina HiSeq 2500 flowcell, to produce 141bp reads. In total, we produced profiles from 16 RNA-Seq samples and 16 microarray samples with identically nested experimental designs.
 
 \subsubsection{Quantitative PCR.}
 
-To perform quantitative PCR, the four RNA samples were treated with RNase-Free DNase Set  (Cat \# 79254, Qiagen) column digestion to remove DNA in the samples. Total RNA was quantified using Quant-iT RNA assay Kit (Q33140, Invirogen) and Biotek Synergy Mx plate reader. 750 ng total RNA was used in the first strand cDNA synthesis (SuperScript III Reverse Transcriptase, Cat \# 18080, Invitrogen). Prevalidated FAM-MGB Taqman probes and primers mix for all candidate genes were ordered from Life Technologies. 96 well plates (Cat\# N8010560, ABI) and optical adhesive cover starter kit (Cat \# 4313663, ABI) were used. qPCR reactions were set up by combining Taqman Gene Expression Master Mix (Cat \# 4369016, Life Technologies) and individual probe plus primer mix. 20 µl qPCR reaction was run on ABI 7900 HT Sequence Detection System using the following thermal protocol: 50°C, 2 min; 95°C, 10 min; 40 cycles of 95°C, 15 sec and 60°C, 1 min; 95°C, 15 sec; 60°C, 15 sec; 95°C, 15 sec.
+To perform quantitative PCR, the four RNA samples were treated with RNase-Free DNase Set  (Cat \# 79254, Qiagen) column digestion to remove DNA in the samples. Total RNA was quantified using Quant-iT RNA assay Kit (Q33140, Invirogen) and Biotek Synergy Mx plate reader. 750 ng total RNA was used in the first strand cDNA synthesis (SuperScript III Reverse Transcriptase, Cat \# 18080, Invitrogen). Prevalidated FAM-MGB Taqman probes and primers mix for all candidate genes were ordered from Life Technologies. 96 well plates (Cat\# N8010560, ABI) and optical adhesive cover starter kit (Cat \# 4313663, ABI) were used. qPCR reactions were set up by combining Taqman Gene Expression Master Mix (Cat \# 4369016, Life Technologies) and individual probe plus primer mix. The \SI{20}{\micro\litre} qPCR reactions were run on ABI 7900 HT Sequence Detection System using the following thermal protocol: 50\degree C, 2 min; 95\degree C, 10 min; 40 cycles of 95\degree C, 15 sec and 60\degree C, 1 min; 95\degree C, 15 sec; 60\degree C, 15 sec; 95\degree C, 15 sec.
 
 Any candidate genes with more than one band on agarose gel after qPCR were excluded from further analysis. Three replicates of RT-qPCR for each RNA sample starting from cDNA synthesis to qPCR reaction were performed. Each measurement was normalized based on the average across all genes in a biological replicate, and the log-fold change was estimated based on the difference in average number of cycles between ethanol and glucose samples.
 
@@ -775,7 +777,7 @@ The microarray data used in this experiment is available from the Gene Expressio
 
 \section{Acknowledgments}
 
-We are grateful for the experimental guidance from Dr. Dipen Sangurdekar, Dr. Sandy Silverman and Dr. Nicolai Slavov.
+We are grateful for the experimental guidance from Dr. Dipen Sangurdekar, Dr. Sandy Silverman and Dr. Nicolai Slavov, and technical support from Dr. Wei Wang, Ms. Donna Storton, and Ms. Jessica Wiggins at the Sequencing Core Facility at Princeton University.
 
 \clearpage
 
