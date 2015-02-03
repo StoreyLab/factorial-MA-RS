@@ -1,4 +1,4 @@
-%\documentclass[a4,center,fleqn]{NAR}
+% \documentclass[a4,center,fleqn]{NAR}
 \documentclass{article}
 
 %\VignetteEngine{knitr::knitr}
@@ -20,7 +20,7 @@
   \jvolume{X}
   \jissue{X}
 \else
-  % electronic
+  \usepackage{fullpage}
 \fi
 
 %\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
@@ -420,25 +420,32 @@ We carried out a genome-wide gene expression experiment in a controlled setting 
 
 We use this experiment to examine the variation added by the RNA-Seq and microarray technologies. Our analysis focuses on two novel problems: decomposing the variation contributed by each technology into multiple stages, which is made possible by the nested design, and analyzing the variation as a function of gene expression intensity, which is known to influence technology-specific variation in both microarrays \cite{Novak:2002dw,Tu:2002hr} and RNA-Seq \cite{Labaj:2011co,Tarazona:2011fi}. (Throughout this paper, we utilize ``intensity'' of a gene as a term for both fluorescence intensity in microarrays and per-gene read depth in RNA-seq, both of which are measurements of a gene's abundance subject to technology-specific biases and sources of variation.) We find that the variance contributed by RNA-Seq is more intensity-dependent than that from microarrays, a result that is statistically significant and is robust across multiple normalization methods and $R^2$ metrics. However, comparisons to qPCR validations show that microarray may show systematic biases in low intensities, possibly due to cross-hybridization. This has implications for the design of future experiments.
 
-A novel characteristic of our experiment relative to previous microarray to RNA-Seq comparisons is that we utilized barcode multiplexing to combine RNA-Seq replicates on each
-
-% this manual page break is a huge hack, but it's necessary because otherwise it overflows into the bottom of the page
-\clearpage
-
-\noindent of two sequencing lanes, meaning that technical variation added by library preparation and handling is now distinguishable from ``sampling'' variation added by the lane. Also notable is that our analysis takes into account the effect that intensity has on variation, which has confounded previous comparisons \cite{Bullard:2010p2947}. We thus examine which technology adds more variation as a function of per-gene depth or intensity.
-
+\ifNAR
+  A novel characteristic of our experiment relative to previous microarray to RNA-Seq comparisons is that we utilized barcode multiplexing to combine RNA-Seq replicates on each
+  % this manual page break is a huge hack, but it's necessary because otherwise it overflows into the bottom of the page
+  \clearpage
+  \noindent of two sequencing lanes, meaning that technical variation added by library preparation and handling is now distinguishable from ``sampling'' variation added by the lane. Also notable is that our analysis takes into account the effect that intensity has on variation, which has confounded previous comparisons \cite{Bullard:2010p2947}. We thus examine which technology adds more variation as a function of per-gene depth or intensity.
+\else
+  A novel characteristic of our experiment relative to previous microarray to RNA-Seq comparisons is that we utilized barcode multiplexing to combine RNA-Seq replicates on each of two sequencing lanes, meaning that technical variation added by library preparation and handling is now distinguishable from ``sampling'' variation added by the lane. Also notable is that our analysis takes into account the effect that intensity has on variation, which has confounded previous comparisons \cite{Bullard:2010p2947}. We thus examine which technology adds more variation as a function of per-gene depth or intensity.
+\fi
 
 \section{MATERIALS AND METHODS}
 
-\subsection{Growth of Yeast in Chemostats} The experiment was performed using yeast haploid strain DBY 12000 FY, a S288C derivative containing the wild-type HAP1 allele.  A single colony was split into 2 overnight cultures, one containing ethanol limitation medium with 60 C-mM and the other containing glucose limitation medium with 27 C-mM Carbon as the carbon source. 1 mL of each culture was used to inoculate a chemostat. After the chemostats reached stasis, 10 ml culture was collected and frozen at -80C (see \textbf{Supplementary Methods}).  A second set of biological samples were prepared the same way on a different day.
+\subsection{Yeast growth and gene expression profiling}
 
-\noindent{Gene Expression Profiling} RNA was harvested from each of the 4 samples. The 4 RNA samples were then processed twice on different days using the Agilent Quick Amp Labeling kit (Part no. 5190-0424) to produce 8 cRNA libraries, each of which was then hybridized on two separate chips (Yeast Expression 8x15K arrays) on different days according to the factorial design.  After the arrays are washed and scanned, features are extracted using the Agilent Feature Extraction software to determine red and green intensities.
+\subsubsection{Growth of yeast in chemostats.}
+
+The experiment was performed using yeast haploid strain DBY 12000 FY, a S288C derivative containing the wild-type HAP1 allele.  A single colony was split into 2 overnight cultures, one containing ethanol limitation medium with 60 C-mM and the other containing glucose limitation medium with 27 C-mM Carbon as the carbon source. 1 mL of each culture was used to inoculate a chemostat. After the chemostats reached stasis, 10 ml culture was collected and frozen at -80C (see \textbf{Supplementary Methods}).  A second set of biological samples were prepared the same way on a different day.
+
+\subsubsection{Microarray and RNA-Seq.}
+
+RNA was harvested from each of the 4 samples. The 4 RNA samples were then processed twice on different days using the Agilent Quick Amp Labeling kit (Part no. 5190-0424) to produce 8 cRNA libraries, each of which was then hybridized on two separate chips (Yeast Expression 8x15K arrays) on different days according to the factorial design.  After the arrays are washed and scanned, features are extracted using the Agilent Feature Extraction software to determine red and green intensities.
 
 The same 4 RNA samples were also processed using the Illumina TruSeq RNA Sample Prep v2 LS protocol.  Each sample was prepared twice up to the 3' end adenylation, then each of the 8 preparations was split into two aliquots, after which each was indexed and amplified to complete the RNA-Seq library preparation. The two groups of 8 samples that were indexed together were each mixed at equimolar concentrations and sequenced on separate lanes on the same Illumina HiSeq 2500 flowcell, to produce 141bp reads. In total, we produced profiles from 16 RNA-Seq samples and 16 microarray samples with identically nested experimental designs.
 
-\
+\subsubsection{Quantitative PCR.}
 
-\noindent {\em Quantitative PCR.}  To perform quantitative PCR, the four RNA samples were treated with RNase-Free DNase Set  (Cat \# 79254, Qiagen) column digestion to remove DNA in the samples. Total RNA was quantified using Quant-iT RNA assay Kit (Q33140, Invirogen) and Biotek Synergy Mx plate reader. 750 ng total RNA was used in the first strand cDNA synthesis (SuperScript III Reverse Transcriptase, Cat \# 18080, Invitrogen). Prevalidated FAM-MGB Taqman probes and primers mix for all candidate genes were ordered from Life Technologies. 96 well plates (Cat\# N8010560, ABI) and optical adhesive cover starter kit (Cat \# 4313663, ABI) were used. qPCR reactions were set up by combining Taqman Gene Expression Master Mix (Cat \# 4369016, Life Technologies) and individual probe plus primer mix. 20 µl qPCR reaction was run on ABI 7900 HT Sequence Detection System using the following thermal protocol: 50°C, 2 min; 95°C, 10 min; 40 cycles of 95°C, 15 sec and 60°C, 1 min; 95°C, 15 sec; 60°C, 15 sec; 95°C, 15 sec.
+To perform quantitative PCR, the four RNA samples were treated with RNase-Free DNase Set  (Cat \# 79254, Qiagen) column digestion to remove DNA in the samples. Total RNA was quantified using Quant-iT RNA assay Kit (Q33140, Invirogen) and Biotek Synergy Mx plate reader. 750 ng total RNA was used in the first strand cDNA synthesis (SuperScript III Reverse Transcriptase, Cat \# 18080, Invitrogen). Prevalidated FAM-MGB Taqman probes and primers mix for all candidate genes were ordered from Life Technologies. 96 well plates (Cat\# N8010560, ABI) and optical adhesive cover starter kit (Cat \# 4313663, ABI) were used. qPCR reactions were set up by combining Taqman Gene Expression Master Mix (Cat \# 4369016, Life Technologies) and individual probe plus primer mix. 20 µl qPCR reaction was run on ABI 7900 HT Sequence Detection System using the following thermal protocol: 50°C, 2 min; 95°C, 10 min; 40 cycles of 95°C, 15 sec and 60°C, 1 min; 95°C, 15 sec; 60°C, 15 sec; 95°C, 15 sec.
 
 Any candidate genes with more than one band on agarose gel after qPCR were excluded from further analysis. Three replicates of RT-qPCR for each RNA sample starting from cDNA synthesis to qPCR reaction were performed. Each measurement was normalized based on the average across all genes in a biological replicate, and the log-fold change was estimated based on the difference in average number of cycles between ethanol and glucose samples.
 
@@ -448,11 +455,13 @@ limma.version = sessionInfo()[["otherPkgs"]][["limma"]]$Version
 
 \
 
-\noindent {\em Preprocessing and Statistical Analysis.}  We used \texttt{bowtie2} with the default set of parameters to map the RNA-Seq reads to the yeast genome, and used \texttt{htseq-count} to match reads against the \emph{S. cerevisiae} R64 release of the reference genome from the Sacchromyces Genome Database. Microarrays were normalized after averaging all preparation and chip replicates within each biological replicate to create two E replicates and two G replicates. The matrix of RNA-Seq counts was first pooled within preparation and chip replicates, then was transformed using \texttt{voom} from \texttt{limma}, which also computed precision weights for each observation \cite{Law:2014tta}. This pooling was necessary for differential expression because while the replicates at later nested stages introduced variation, they were not full biological replicates, and treating them as replicates for limma would be pseudoreplication that underestimates the within-group variation \cite{Hurlbert:1984cy}. We tested for differential expression in each technology using a linear model with empirical Bayes shrinkage of T-statistics, implemented by \texttt{limma} version \Sexpr{limma.version} \cite{Smyth:2005wm}.
+\subsection{Preprocessing and statistical analysis}  We used \texttt{bowtie2} with the default set of parameters to map the RNA-Seq reads to the yeast genome, and used \texttt{htseq-count} to match reads against the \emph{S. cerevisiae} R64 release of the reference genome from the Sacchromyces Genome Database. Microarrays were normalized after averaging all preparation and chip replicates within each biological replicate to create two E replicates and two G replicates. The matrix of RNA-Seq counts was first pooled within preparation and chip replicates, then was transformed using \texttt{voom} from \texttt{limma}, which also computed precision weights for each observation \cite{Law:2014tta}. This pooling was necessary for differential expression because while the replicates at later nested stages introduced variation, they were not full biological replicates, and treating them as replicates for limma would be pseudoreplication that underestimates the within-group variation \cite{Hurlbert:1984cy}. We tested for differential expression in each technology using a linear model with empirical Bayes shrinkage of T-statistics, implemented by \texttt{limma} version \Sexpr{limma.version} \cite{Smyth:2005wm}.
 
 \
 
-\noindent {\em Estimating Contributions to Variation.} For calculations of the percent of variation explained, the microarray red/green log fold changes and the RNA-Seq log-transformed counts were compared, with the counts first transformed using \texttt{voom} \cite{Law:2014tta}. We compared multiple methods of normalizing both the microarray and RNA-Seq data between samples, using implementations in the \texttt{normalizeBetweenArrays} function in \texttt{limma} as well as the TMM \cite{Robinson:2010p9965} and RLE \cite{Anders:2010fua} methods for RNA-Seq, but none made a qualitative difference in the resulting conclusions (\textbf{Figure S3}). % \ref{fig:compare_normalization}}).
+\subsubsection{Estimating contributions to variation.}
+
+For calculations of the percent of variation explained, the microarray red/green log fold changes and the RNA-Seq log-transformed counts were compared, with the counts first transformed using \texttt{voom} \cite{Law:2014tta}. We compared multiple methods of normalizing both the microarray and RNA-Seq data between samples, using implementations in the \texttt{normalizeBetweenArrays} function in \texttt{limma} as well as the TMM \cite{Robinson:2010p9965} and RLE \cite{Anders:2010fua} methods for RNA-Seq, but none made a qualitative difference in the resulting conclusions (\textbf{Figure S3}). % \ref{fig:compare_normalization}}).
 
 For each gene, in both the normalized RNA-Seq data or the microarray fold-change values, we calculated the adjusted-$R^2$ using a nested ANOVA on three linear models, which differed in which levels of the experiment were parameterized and which were left as residual variation (\textbf{Supplementary Methods}). The $R^2$ estimates were then smoothed using LOESS across all genes based on their microarray intensity or RNA-Seq read depth.
 
@@ -464,7 +473,7 @@ Factors (1)--(4) were sequentially nested, and at the stage of each nested facto
 
 \
 
-\subsection{Differential Expression} The biological goal of this experiment is to infer differential gene expression in \textit{Saccharomyces cerevisiae} strain DBY12000 (S288c Hap1+ Mat \textit{a}) cultivated in balanced growth conditions in chemostats using either glucose or ethanol as the sole carbon source (condition of interest).  The chemostat device helped minimize any variations in growth conditions (such as physiological state, temperature, nutrient composition, etc.) so the study could directly interrogate the factor of interest: transcriptional responses to different carbon sources \cite{Novick:1950va}. We used a linear model with t-statistic shrinkage to detect differential expression in each case, after log-transforming the RNA-Seq counts and fitting precision weights to each observation \cite{Smyth:2005wm,Law:2014tta}. We specifically tracked a biologically relevant set of \Sexpr{nrow(pathway)} genes known to be involved in processes relevant to glucose or ethanol metabolism, namely gluconeogenesis, glycolysis, the TCA cycle and the pyruvate branchpoint \cite{Kolkman:2005tz}.
+\subsection{Differential expression} The biological goal of this experiment is to infer differential gene expression in \textit{Saccharomyces cerevisiae} strain DBY12000 (S288c Hap1+ Mat \textit{a}) cultivated in balanced growth conditions in chemostats using either glucose or ethanol as the sole carbon source (condition of interest).  The chemostat device helped minimize any variations in growth conditions (such as physiological state, temperature, nutrient composition, etc.) so the study could directly interrogate the factor of interest: transcriptional responses to different carbon sources \cite{Novick:1950va}. We used a linear model with t-statistic shrinkage to detect differential expression in each case, after log-transforming the RNA-Seq counts and fitting precision weights to each observation \cite{Smyth:2005wm,Law:2014tta}. We specifically tracked a biologically relevant set of \Sexpr{nrow(pathway)} genes known to be involved in processes relevant to glucose or ethanol metabolism, namely gluconeogenesis, glycolysis, the TCA cycle and the pyruvate branchpoint \cite{Kolkman:2005tz}.
 
 <<cortypes, dependson = "calculate_rolling_correlations">>=
 pearson_low <- min(filter(cors_m, Type == "Pearson", !is.na(value))$value)
@@ -513,7 +522,9 @@ One goal is to assess to what extent RNA-Seq and microarray experiments agree in
 
 \
 
-\subsection{Percentage of Variation Explained} The primary goal of the factorial experiment is to determine the relative amount of variation added at each stage of the experiment for each of the two technologies. Based on the correlation matrix (\textbf{Figure S1}), the RNA-Seq and microarray assays easily distinguished between the ethanol and glucose samples, and showed clustering within the chip/lane replicates, as expected from the experimental design. Any analysis should, however, consider the intensity-dependence of the variation that each technology contributes. We calculated the proportion of variation explained by the Condition, Biological, and Preparation factors, as well as the residual variation due to the chip or lane, using a nested ANOVA analysis (\textbf{Materials and Methods}). We computed this breakdown separately for each gene and smoothed the result across microarray intensity RNA-Seq depth using the local regression method, LOESS (\textbf{Figure \ref{fig:percentvar}}).
+\subsection{Percentage of variation explained}
+
+The primary goal of the factorial experiment is to determine the relative amount of variation added at each stage of the experiment for each of the two technologies. Based on the correlation matrix (\textbf{Figure S1}), the RNA-Seq and microarray assays easily distinguished between the ethanol and glucose samples, and showed clustering within the chip/lane replicates, as expected from the experimental design. Any analysis should, however, consider the intensity-dependence of the variation that each technology contributes. We calculated the proportion of variation explained by the Condition, Biological, and Preparation factors, as well as the residual variation due to the chip or lane, using a nested ANOVA analysis (\textbf{Materials and Methods}). We computed this breakdown separately for each gene and smoothed the result across microarray intensity RNA-Seq depth using the local regression method, LOESS (\textbf{Figure \ref{fig:percentvar}}).
 
 %% R^2 work
 
@@ -658,7 +669,9 @@ RS_QP <- qPCR_cors %>% filter(technology == "RNA-Seq")
 
 \
 
-\subsection{Validation of Low-Intensity Genes} These results do not necessarily indicate that microarrays are more accurate at low intensities than RNA-Seq, only that they show greater consistency between replicates. Each technology may still possess biases that cause their measurements not to reflect the underlying mRNA abundance levels. To examine the accuracy of each technology more directly, we chose \Sexpr{nqPCR} genes in the bottom 20\% of intensity for both technologies, for which the estimates of the log$_2$(G/E) fold change disagreed by at least 1.0 between the technologies. On these low-intensity contested genes, we performed quantitative PCR (qPCR) on the same mRNA as the experiment to provide an independent validation (\textbf{Materials and Methods}). As shown in \textbf{Figure \ref{fig:qPCR_scatter}}, the qPCR results agreed much more closely with the RNA-Seq estimates than with the microarray: the correlation of estimated RNA-Seq and qPCR log fold changes is \Sexpr{RS_QP$estimate} (p-value $\approx\Sexpr{format.pval(RS_QP$p.value)}$), while the microarray to qPCR correlation is \Sexpr{MA_QP$estimate} (p-value $\approx\Sexpr{format.pval(MA_QP$p.value)}$).% In only \Sexpr{sum(qPCR_abs_residuals$MA_RS_difference < 0)} out of \Sexpr{nqPCR} cases was the microarray estimate closer to the qPCR estimate than RNA-Seq was, and in no case was the improvement greater than $\Sexpr{-min(qPCR_abs_residuals$MA_RS_difference)}$.
+\subsection{Validation of low-intensity genes}
+
+These results do not necessarily indicate that microarrays are more accurate at low intensities than RNA-Seq, only that they show greater consistency between replicates. Each technology may still possess biases that cause their measurements not to reflect the underlying mRNA abundance levels. To examine the accuracy of each technology more directly, we chose \Sexpr{nqPCR} genes in the bottom 20\% of intensity for both technologies, for which the estimates of the log$_2$(G/E) fold change disagreed by at least 1.0 between the technologies. On these low-intensity contested genes, we performed quantitative PCR (qPCR) on the same mRNA as the experiment to provide an independent validation (\textbf{Materials and Methods}). As shown in \textbf{Figure \ref{fig:qPCR_scatter}}, the qPCR results agreed much more closely with the RNA-Seq estimates than with the microarray: the correlation of estimated RNA-Seq and qPCR log fold changes is \Sexpr{RS_QP$estimate} (p-value $\approx\Sexpr{format.pval(RS_QP$p.value)}$), while the microarray to qPCR correlation is \Sexpr{MA_QP$estimate} (p-value $\approx\Sexpr{format.pval(MA_QP$p.value)}$).% In only \Sexpr{sum(qPCR_abs_residuals$MA_RS_difference < 0)} out of \Sexpr{nqPCR} cases was the microarray estimate closer to the qPCR estimate than RNA-Seq was, and in no case was the improvement greater than $\Sexpr{-min(qPCR_abs_residuals$MA_RS_difference)}$.
 
 
 \begin{figure}
@@ -727,7 +740,9 @@ ggplot(norm_combined %>% filter(gene %in% head(topdiffs, num_qPCR_compare)),
 
 \
 
-\subsection {Gene Set Enrichment}  Many gene expression analyses seek to determine sets of genes whose expression changes within a particular condition in order to draw biologically relevant conclusions \cite{Subramanian:2005jt,Ackermann:2009bw}. We thus looked for enriched sets of genes within each technology using a Wilcoxon rank-sum test comparing genes within a gene set to those outside it \cite{Gresham:2011iq,Hung:2012fp}.
+\subsection {Gene set enrichment}
+
+Many gene expression analyses seek to determine sets of genes whose expression changes within a particular condition in order to draw biologically relevant conclusions \cite{Subramanian:2005jt,Ackermann:2009bw}. We thus looked for enriched sets of genes within each technology using a Wilcoxon rank-sum test comparing genes within a gene set to those outside it \cite{Gresham:2011iq,Hung:2012fp}.
 
 Many enrichment tests look for genes that are unusually high or low on a ranked list, often ranked by statistical significance. However, ranking by statistical significance has been noted to lead to a confounding effect in RNA-Seq, where highly-expressed or high-depth gene sets are spuriously marked as significant \cite{Alicia:2009p2913,Gao:2011p9925}. An alternative is to perform enrichment analysis on log fold change estimates, which would be expected to be less confounded with depth \cite{Robinson:2014hz}. To demonstrate this effect in our data, we performed gene set enrichment using either p-values or fold change estimates from each technology, then assigned the gene sets into 5 bins based on each gene set's median intensity (\textbf{Figure S5}). We see that the enrichment p-value histogram is highly conservative for low-intensity gene sets when differential expression p-values are used, and is less influenced by intensity when the log fold change estimate is used instead. Notably, even though we found the per-gene variation to be more intensity dependent in RNA-Seq than in microarray, the intensity dependence of gene sets is similar between the two technologies. Another reason to use the fold-change estimate is that the significance metric is more technology dependent: the p-values for differential expression show only a moderate Spearman correlation of \Sexpr{cor(fulldata$RS.p.value, fulldata$MA.p.value, method="spearman")} between microarrays and RNA-Seq, while the fold change estimate shows a higher correlation of \Sexpr{cor(fulldata$RS.estimate, fulldata$MA.estimate, method="spearman")}. We thus chose to use the estimate of effect size rather than statistical significance to evaluate gene set enrichment.
 
@@ -754,7 +769,7 @@ More importantly, our study has demonstrated that the intensity-dependent nature
 
 This work was supported by the National Institutes of Health [grant numbers R01 HG002913, R21 HG006769].
 
-\section*{Computer Code and Data}
+\section{Computer Code and Data}
 
 Reproducible R code and the data can be obtained from \url{https://github.com/StoreyLab/factorial-MA-RS}.
 
