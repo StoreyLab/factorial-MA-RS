@@ -10,7 +10,7 @@ Draft of the manuscript [A nested parallel experiment demonstrates differences i
     * Some datasets have documentation, others don't yet but will
 
 Installation
-==============
+--------------
 
 You'll first need to install the following packages:
 
@@ -23,3 +23,8 @@ You'll first need to install the following packages:
 Then open `factorial.Rproj` and under the Build tab, click "Build & Reload." It should install the remaining packages. You can then go to `vignettes/factorial.Rnw` and click Compile PDF.
 
 To compile the supplemental material, go to `vignettes/supplemental.Rnw` and click Compile PDF again.
+
+Deposited Data
+--------------
+
+The microarray data used in this experiment is available from the Gene Expression Omnibus (accession [GSE65365](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65365)), and the RNA-Seq reads are available from the NCBI Short Read Archive (BioProject accession [PRJNA271248](http://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA271248)). 

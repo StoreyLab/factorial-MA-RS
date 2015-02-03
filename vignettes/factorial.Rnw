@@ -771,11 +771,11 @@ This work was supported by the National Institutes of Health [grant numbers R01 
 
 \section{Computer Code and Data}
 
-Reproducible R code and the data can be obtained from \url{https://github.com/StoreyLab/factorial-MA-RS}.
+The microarray data used in this experiment is available from the Gene Expression Omnibus (accession GSE65365), and the RNA-Seq reads are available from the NCBI Short Read Archive (BioProject accession PRJNA271248). Reproducible R code and the processed data can be obtained from \url{https://github.com/StoreyLab/factorial-MA-RS}.
 
 \section{Acknowledgments}
 
-We are grateful to the experimental guidance from Dr. Dipen Sangurdekar, Dr. Sandy Silverman and Dr. Nicolai Slavov.
+We are grateful for the experimental guidance from Dr. Dipen Sangurdekar, Dr. Sandy Silverman and Dr. Nicolai Slavov.
 
 \clearpage
 
